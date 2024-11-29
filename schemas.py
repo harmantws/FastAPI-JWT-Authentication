@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field, validator
-
+from typing import Optional
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
@@ -41,3 +41,22 @@ class UserLogin(BaseModel):
 
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
+
+class BookCreate(BaseModel):
+    title: str
+    author : str
+    price : float
+
+class BookUpdate(BaseModel):
+    title: Optional[str] = None
+    author: Optional[str] = None
+    price: Optional[float] = None
+
+class PostCreate(BaseModel):
+    title: str
+    content : str
+
+class PostUpdate(BaseModel):
+    title: Optional[str] = None
+    content : Optional[str] = None
+
