@@ -16,6 +16,8 @@ class User(Base):
     last_name = Column(String, nullable=True)
 
     posts = relationship("Post", back_populates="author")
+    profile = relationship("Profile", back_populates="user", uselist=False)
+
 
 class Book(Base):
     __tablename__ = 'books'
@@ -34,3 +36,14 @@ class Post(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     author = relationship("User", back_populates="posts")
+
+class Profile(Base):
+    __tablename__ = 'profiles'
+    id= Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    bio = Column(String, nullable=True, index=True)
+    location = Column(String, nullable=True, index=True)
+    birthdate = Column(DateTime, nullable=True, index=True)
+    image_url = Column(String, nullable=True, index=True)
+
+    user = relationship("User", back_populates="profile")

@@ -12,7 +12,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         logger.debug(f"AuthMiddleware triggered for path: {request.url.path}")
         
-        public_routes = ["/", "/login/", "/register/","/docs", "/redoc", "/openapi.json"]
+        public_routes = ["/", "/users/login/", "/users/register/", "/docs", "/redoc", "/openapi.json","/favicon.ico"]
         if request.url.path in public_routes or any(request.url.path.startswith(route) for route in public_routes[1:]):
             logger.debug(f"Middleware bypassed for path: {request.url.path}")
             return await call_next(request)
@@ -38,4 +38,3 @@ class AuthMiddleware(BaseHTTPMiddleware):
             )
 
         return await call_next(request)
-

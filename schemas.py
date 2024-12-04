@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
+from datetime import date
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
@@ -60,3 +61,13 @@ class PostUpdate(BaseModel):
     title: Optional[str] = None
     content : Optional[str] = None
 
+class ProfileCreate(BaseModel):
+    bio: str = Field("I love programming")
+    location: str = Field('San Francisco')
+    birthdate: date = Field('1990-02-10')
+    
+
+class ProfileUpdate(BaseModel):
+    bio: Optional[str] = Field(None, example="Updated bio")
+    location: Optional[str] = Field(None, example="San Francisco")
+    birthdate: Optional[date] = Field(None, example="1990-02-10")
